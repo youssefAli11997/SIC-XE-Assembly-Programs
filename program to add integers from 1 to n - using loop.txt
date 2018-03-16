@@ -1,0 +1,16 @@
+.program to add integers from 1 to n (inclusive)
+.using loop
+.2345678901234567890123
+SUM2     START   1000
+         LDX     INITIAL
+         LDA     ZERO
+LOOP     ADDR    X,A
+         TIX     N
+         JGT     OUT
+         J       LOOP
+OUT      STA     ANS
+INITIAL  WORD    1
+ZERO     WORD    0
+N        WORD    4
+ANS      RESW    1
+         END     SUM2
