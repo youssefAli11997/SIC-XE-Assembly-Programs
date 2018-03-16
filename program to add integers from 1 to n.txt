@@ -1,0 +1,14 @@
+.program to add integers from 1 to n (inclusive)
+.using the formula: n(n+1)/2
+.2345678901234567890123
+SUM      START   1000
+         LDA     N
+         ADD     ONE
+         MUL     N
+         DIV     TWO
+         STA     ANS
+N        WORD    4
+ONE      WORD    1
+TWO      WORD    2
+ANS      RESW    1
+         END     SUM
