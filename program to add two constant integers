@@ -1,0 +1,7 @@
+PROB1    START   1000
+         LDA     ALPHA
+         LDS     BETA
+         ADDR    A,S
+ALPHA    WORD    3
+BETA     WORD    7
+         END     PROB1
