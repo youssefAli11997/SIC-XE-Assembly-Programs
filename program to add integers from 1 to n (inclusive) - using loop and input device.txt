@@ -1,0 +1,21 @@
+.program to add integers from 1 to n (inclusive)
+.using loop and input device F3
+.2345678901234567890123
+SUM2     START   1000
+         LDX     INITIAL
+         LDA    #0
+AGAIN    TD      INDEV
+         JEQ     AGAIN
+         RD      INDEV
+         STA     N
+         LDA    #0
+LOOP     ADDR    X,A
+         TIX     N
+         JGT     OUT
+         J       LOOP
+OUT      STA     ANS
+INITIAL  WORD    1
+INDEV    BYTE    X'F3'
+N        RESW    1
+ANS      RESW    1
+         END     SUM2
