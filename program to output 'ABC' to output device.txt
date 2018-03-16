@@ -1,0 +1,19 @@
+.program to output 'ABC' to output device
+.2345678901234567890123
+OUT      START   1000
+         LDA    #65
+         JSUB    WRITE
+         LDA    #66
+         JSUB    WRITE
+         LDA    #67
+         JSUB    WRITE
+         J       EXIT
+.
+.
+.output subroutine
+WRITE    TD      OUTDEV
+         JEQ     WRITE
+         WD      OUTDEV
+         RSUB
+OUTDEV   BYTE    x'06'
+EXIT     END     OUT
