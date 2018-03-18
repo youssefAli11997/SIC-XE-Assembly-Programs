@@ -1,0 +1,48 @@
+.program to convert a string to UPPER case
+.23456789012345678901234567890
+PROP3    START   1000
+.initialization
+         LDX    #0
+.converting loop
+LOOP     LDA    #0
+         LDCH    INSTR,X
+.check if it's a small letter
+         COMP    SMLA
+         JLT     CONT
+         COMP    SMLZ
+         JGT     CONT
+.it's a small letter. convert it to upper case
+         ADD     CAPA
+         SUB     SMLA
+CONT     STCH    OUTSTR,X
+         TIX     LENGTH
+         JLT     LOOP
+.
+.resetting register X
+         LDX    #0
+.printing loop
+LOOP2    LDA    #0
+         LDCH    OUTSTR,X
+         JSUB    PRINT
+         TIX     LENGTH
+         JLT     LOOP2
+         J       EXIT
+.
+.
+.subroutine to print result in output device
+PRINT    TD      OUTDEV
+         JEQ     PRINT
+         WD      OUTDEV
+         RSUB
+.
+.
+.declarations
+OUTDEV   BYTE    X'05'
+INSTR    BYTE    C'aB 123g@#j'
+OUTSTR   RESB    10
+LENGTH   WORD    10
+CAPA     WORD    65
+CAPZ     WORD    90
+SMLA     WORD    97
+SMLZ     WORD    122
+EXIT     END     PROP3

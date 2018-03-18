@@ -1,0 +1,44 @@
+.program to calculate 4*beta + 3*gamma
+.2345678901234567890123
+PROP1    START   1000
+.read beta
+         LDA    #0
+         JSUB    READ
+         STA     BETA
+.read gamma
+         LDA    #0
+         JSUB    READ
+         STA     GAMMA
+.calculate 4 * beta
+         LDA    #4
+         MUL     BETA
+.store the result (4*beta) in register S
+         RMO     A,S
+.calculate 3 * gamma
+         LDA    #3
+         MUL     GAMMA
+.calculate the final result and store it in alpha
+         ADDR    S,A
+         STA     ALPHA
+.output the final result
+         JSUB    WRITE
+.done! exit!
+         J       EXIT
+.
+.subroutine to get input from input device
+READ     TD      INDEV
+         JEQ     READ
+         RD      INDEV
+         RSUB
+.subroutine to print result in output device
+WRITE    TD      OUTDEV
+         JEQ     WRITE
+         WD      OUTDEV
+         RSUB
+.declarations
+INDEV    BYTE    X'F3'
+OUTDEV   BYTE    X'05'
+ALPHA    RESW    1
+BETA     RESW    1
+GAMMA    RESW    1
+EXIT     END     PROP1

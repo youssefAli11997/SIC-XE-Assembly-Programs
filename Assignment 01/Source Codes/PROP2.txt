@@ -1,0 +1,23 @@
+.program to convert a two-digit string to a number and store the number in register A
+.2345678901234567890123
+PROP2    START   1000
+.initialization
+         LDX    #0
+         LDA    #0
+.manipulate the first character/digit (from the left)
+         LDCH    STR,X
+         SUB     ZERO
+         MUL    #10
+         RMO     A,S
+.update index (register X) and reset register A
+         TIX    #2
+         LDA    #0
+.manipulate the second character/digit (from the left)
+         LDCH    STR,X
+         SUB     ZERO
+.store the final converted number into register A
+         ADDR    S,A
+.declarations
+STR      BYTE    C'78'
+ZERO     WORD    48
+         END     PROP2

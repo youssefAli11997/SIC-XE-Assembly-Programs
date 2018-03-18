@@ -1,0 +1,89 @@
+.program to implement the bubble sort to sort characters in a string
+.23456789012345678901234567890
+PROP4    START   1000
+.initialization
+         LDX    #0
+         LDA    #0
+         LDS    #1
+.
+.the outer loop
+LOOP     RMO     S,A
+.check if no swapping was performed in the pervious inner iteration
+         COMP   #0
+.the string is sorted. jump to print it.
+         JEQ     COMP
+.initialization for the inner loop
+         LDA    #0
+         LDS    #0
+.the inner loop
+         LDX    #0
+.compare str[x] with str[x+1]
+LOOP2    LDCH    STR,X
+         RMO     A,B
+         TIX     LASTIX
+         LDCH    STR,X
+         COMPR   A,B
+         JGT     DECR
+         JEQ     DECR
+         JSUB    SWAP
+         J       INCR
+.
+.decrease x by 1
+DECR     RMO     X,A
+         SUB    #1
+         RMO     A,X
+INCR     LDA    #0
+         TIX     LASTIX
+         JLT     LOOP2
+         J       LOOP
+.
+.resetting register X
+COMP     LDX    #0
+.printing loop
+LOOP3    LDA    #0
+         LDCH    STR,X
+         JSUB    PRINT
+         TIX     LENGTH
+         JLT     LOOP3
+         J       EXIT
+.
+.
+.subroutine to print result in output device
+PRINT    TD      OUTDEV
+         JEQ     PRINT
+         WD      OUTDEV
+         RSUB
+.
+.
+.
+.swapping subroutine. using register T as a temporary container
+SWAP     LDT    #0
+.load str[x+1] in T
+         LDCH    STR,X
+         RMO     A,T
+.decrease X by 1
+         RMO     X,A
+         SUB    #1
+         RMO     A,X
+.store str[x] in str[x+1]
+         LDCH    STR,X
+         TIX     LENGTH
+         STCH    STR,X
+.decrease X by 1
+         RMO     X,A
+         SUB    #1
+         RMO     A,X
+.take previous value of str[x+1] that is in T, put it in A and then in str[x]
+         RMO     T,A
+         STCH    STR,X
+.set register S to 1 to mark swapping
+         LDS    #1
+         RSUB
+.
+.
+.declarations
+OUTDEV   BYTE    X'05'
+STR      BYTE    C'FADEACBAA'
+LASTIX   WORD    8
+LENGTH   WORD    9
+EXIT     END     PROP4
